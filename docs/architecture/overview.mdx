@@ -1,0 +1,17 @@
+# System Architecture (Hybrid Stack)
+
+Our ecosystem is built for maximum performance using a hybrid microservices approach.
+
+### 1. Frontend: Vue.js & Three.js
+
+- **Vue 3 (Composition API)**: Manages the CRM state and UI components.
+- **Three.js**: Handles the 3D Solar Editor, rendering the roof mesh and PV panels.
+
+### 2. Hybrid Backend
+
+- **Rust (Actix-web/Axum)**: Handles high-speed tasks like the **Energy Engine** and **3D Geometry calculations**.
+- **Python (FastAPI/Flask)**: Manages **AI Roof Detection** (OpenCV/TensorFlow) and complex data processing.
+
+### 3. Communication
+
+- **REST/gRPC**: For communication between Vue.js and the Rust/Python services.

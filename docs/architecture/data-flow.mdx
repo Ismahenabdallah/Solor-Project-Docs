@@ -1,0 +1,30 @@
+# Data Flow & Technical Sequence
+
+To achieve high-performance 3D modeling and real-time energy simulation, our data flow is divided into two main layers: the **Business Workflow** and the **Technical Execution**.
+
+### 1. Business Workflow (Lead to Proposal)
+
+This is the end-to-end journey of a solar project:
+
+1. **Intake**: Customer address is captured and converted to GPS coordinates.
+2. **Imagery Sync**: Coordinates trigger a request to Map APIs to fetch high-resolution satellite imagery.
+3. **3D Design**: The designer models the roof and places panels in the 3D scene.
+4. **Energy Processing**: The layout is analyzed to predict monthly and annual energy production (kWh).
+5. **Proposal Generation**: Technical results are combined with financial data into a branded PDF.
+
+### 2. Technical Execution (Hybrid Stack)
+
+How our tech stack (Rust, Python, Vue, Three.js) handles the data in real-time:
+
+- **Frontend (Vue + Three.js)**:
+  When a panel is placed, Three.js calculates its 3D coordinates. Vue.js immediately updates the **Local State** using Pinia.
+- **Computation (Rust Service)**:
+  The layout JSON is sent to the **Rust-based Energy Engine**. Rust performs vector math for shading and irradiance in microseconds.
+- **AI Analysis (Python Service)**:
+  The **Python AI module** processes satellite images in the background to detect roof planes and obstructions.
+- **Database (Persistence)**:
+  Final validated data is sent via the **Rust API** to be saved securely.
+
+:::tip Performance Note
+By offloading heavy math to **Rust** and AI to **Python**, the Vue/Three.js frontend remains smooth (60 FPS) even during complex simulations.
+:::
